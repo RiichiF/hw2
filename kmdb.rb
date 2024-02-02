@@ -191,12 +191,6 @@ new_role.save
 
 new_role = Role.new
 new_role["movie_id"] = Movie.where({"title" => "The Dark Knight"})[0]["id"]
-new_role["actor_id"] = Actor.where({"name" => "Michael Caine"})[0]["id"]
-new_role["charactor_name"] = "Alfred"
-new_role.save
-
-new_role = Role.new
-new_role["movie_id"] = Movie.where({"title" => "The Dark Knight"})[0]["id"]
 new_role["actor_id"] = Actor.where({"name" => "Heath Ledger"})[0]["id"]
 new_role["charactor_name"] = "Joker"
 new_role.save
@@ -205,6 +199,12 @@ new_role = Role.new
 new_role["movie_id"] = Movie.where({"title" => "The Dark Knight"})[0]["id"]
 new_role["actor_id"] = Actor.where({"name" => "Aaron Eckhart"})[0]["id"]
 new_role["charactor_name"] = "Harvey Dent"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = Movie.where({"title" => "The Dark Knight"})[0]["id"]
+new_role["actor_id"] = Actor.where({"name" => "Michael Caine"})[0]["id"]
+new_role["charactor_name"] = "Alfred"
 new_role.save
 
 new_role = Role.new
@@ -251,13 +251,10 @@ puts ""
 # Query the movies data and loop through the results to display the movies output.
 for movie in Movie.all
     # Get the studio name from Studio on the movie
-    # movie studio_id = 2
     studio = Studio.where({"id" => movie["studio_id"]})[0]
     puts "#{movie["title"]} #{movie["year_released"]} #{movie["rated"]} #{studio["name"]}"
 
 end
-
-
 
 # Prints a header for the cast output
 puts ""
@@ -266,4 +263,8 @@ puts "========"
 puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie.
-# TODO!
+for cast in Role.all
+    movie = Movie.where({"id" => cast["movie_id"]})[0]
+    actor = Actor.where({"id" => cast["actor_id"]})[0]
+    puts "#{movie["title"]} #{actor["name"]} #{cast["charactor_name"]}"
+end
